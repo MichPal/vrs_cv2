@@ -53,6 +53,12 @@ int main(void)
 	GPIOA->OTYPER &= (uint32_t) 0<<5;
 	GPIOA->PUPDR |= (uint32_t) 0b01<<10;
 	GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
+
+	GPIOA->ODR |= (uint32_t) 1<<5;
+	GPIOA->ODR &= (uint32_t) 0<<5;
+
+	GPIOA->BSRRL |= (uint16_t) 1<<5;
+	GPIOA->BSRRH |= (uint16_t) 1<<5;
 	return 0;
 }
 
