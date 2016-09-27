@@ -48,34 +48,12 @@ SOFTWARE.
 */
 int main(void)
 {
-  int i = 0;
-
-  /**
-  *  IMPORTANT NOTE!
-  *  See the <system_*.c> file and how/if the SystemInit() function updates 
-  *  SCB->VTOR register. Sometimes the symbol VECT_TAB_SRAM needs to be defined 
-  *  when building the project if code has been located to RAM and interrupts 
-  *  are used. Otherwise the interrupt table located in flash will be used.
-  *  E.g.  SCB->VTOR = 0x20000000;  
-  */
-
-  /**
-  *  At this stage the microcontroller clock setting is already configured,
-  *  this is done through SystemInit() function which is called from startup
-  *  file (startup_stm32l1xx_hd.s) before to branch to application main.
-  *  To reconfigure the default setting of SystemInit() function, refer to
-  *  system_stm32l1xx.c file
-  */
-
-  /* TODO - Add your application code here */
-
-
-  /* Infinite loop */
-  while (1)
-  {
-	i++;
-  }
-  return 0;
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	GPIOA->MODER |= (uint32_t) 0b01<<10;
+	GPIOA->OTYPER &= (uint32_t) 0<<5;
+	GPIOA->PUPDR |= (uint32_t) 0b01<<10;
+	GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
+	return 0;
 }
 
 #ifdef  USE_FULL_ASSERT
