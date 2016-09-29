@@ -50,20 +50,28 @@ int main(void)
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+
 	GPIOA->MODER |= (uint32_t) 0b01<<10;
-	GPIOA->OTYPER &= (uint32_t) 0<<5;
+	GPIOA->OTYPER &= (uint32_t) ~(0b01<<5);
 	GPIOA->PUPDR |= (uint32_t) 0b01<<10;
 	GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
 
-	GPIOA->ODR |= (uint32_t) 1<<5;
-	GPIOA->ODR &= (uint32_t) 0<<5;
+	GPIOA->ODR |= (uint32_t) 0b01<<5;
+	GPIOA->ODR &= (uint32_t) ~(0b01<<5);
 
-	GPIOA->BSRRL |= (uint16_t) 1<<5;
-	GPIOA->BSRRH |= (uint16_t) 1<<5;
+	GPIOA->BSRRL |= (uint16_t) 0b01<<5;
+	GPIOA->BSRRH |= (uint16_t) 0b01<<5;
 
-	GPIOC->MODER &= (uint32_t) 0b00<<26;
-	GPIOC->OTYPER &= (uint32_t) 0<<13;
-	GPIOC->PUPDR &= (uint32_t) 0b00<<26;
+	GPIOC->MODER &= (uint32_t) ~(0b11<<26);
+	GPIOC->OTYPER &= (uint32_t) ~(0b01<<13);
+	GPIOC->PUPDR &= (uint32_t) ~(0b11<<26);
+
+	uint8_t button;
+
+	  while (1)
+	  {
+		  button = ((GPIOC -> IDR)  & 0b01<<13 ) >> 13;
+	  }
 
 	return 0;
 }
