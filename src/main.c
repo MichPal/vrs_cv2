@@ -70,7 +70,15 @@ int main(void)
 
 	  while (1)
 	  {
+
 		  button = ((GPIOC -> IDR)  & 0b01<<13 ) >> 13;
+
+		  GPIOA->ODR ^= GPIO_Pin_5;
+		  for(int j=0;j<30000;j++){
+			  for(int k=0;k<100;k++){
+			  }
+		  }
+
 	  }
 
 	return 0;
