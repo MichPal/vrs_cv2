@@ -73,10 +73,11 @@ int main(void)
 
 		  button = ((GPIOC -> IDR)  & 0b01<<13 ) >> 13;
 
-		  GPIOA->ODR ^= GPIO_Pin_5;
-		  for(int j=0;j<30000;j++){
-			  for(int k=0;k<100;k++){
-			  }
+		  if (button == 1){
+			  GPIOA -> ODR &= ~(0b01<<5);
+		  }
+		  if (button == 0){
+			  GPIOA -> ODR |= (0b01<<5);
 		  }
 
 	  }
