@@ -67,19 +67,30 @@ int main(void)
 	GPIOC->PUPDR &= (uint32_t) ~(0b11<<26);
 
 	uint8_t button;
+	uint16_t button_pressed_count = 0;
+	uint16_t button_released_count = 0;
 
 	  while (1)
 	  {
 
 		  button = ((GPIOC -> IDR)  & 0b01<<13 ) >> 13;
 
-		  if (button == 1){
-			  GPIOA -> ODR &= ~(0b01<<5);
-		  }
 		  if (button == 0){
-			  GPIOA -> ODR |= (0b01<<5);
+			  if (button_pressed_count < 666){
+				  button_pressed_count++;
+			  }
+			  button_released_count = 0;
+		  }else{
+			  if (button_released_count < 666){
+				  button_released_count++;
+			  }
 		  }
 
+		  if ((button == 1) && (button_released_count == 666) && (button_pressed_count == 666)){
+			  GPIOA -> ODR ^= GPIO_Pin_5;
+			  button_released_count = 0;
+			  button_pressed_count = 0;
+		  }
 	  }
 
 	return 0;
