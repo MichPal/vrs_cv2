@@ -69,12 +69,24 @@ int main(void)
 	GPIO_Init(GPIOC,&GPIO_Struct);
 
 	uint8_t button;
+	uint16_t button_pressed_count = 0;
+	uint16_t button_released_count = 0;
 
 	while (1)
 	{
 		button=GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);
-		if(button==0)GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_SET);
-		else GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_RESET);
+		if (button == 0)
+		{
+			if (button_pressed_count < 666)button_pressed_count++;
+			button_released_count = 0;
+		}
+		else if (button_released_count < 666)button_released_count++;
+
+	  if ((button == 1) && (button_released_count == 666) && (button_pressed_count == 666)){
+		  GPIO_ToggleBits(GPIOA,GPIO_Pin_5);
+		  button_released_count = 0;
+		  button_pressed_count = 0;
+	  }
 	}
 	return 0;
 }
