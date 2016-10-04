@@ -49,6 +49,7 @@ SOFTWARE.
 int main(void)
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
 	GPIO_InitTypeDef GPIO_Struct;
 
