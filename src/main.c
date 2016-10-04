@@ -49,50 +49,18 @@ SOFTWARE.
 int main(void)
 {
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
-	GPIOA->MODER |= (uint32_t) 0b01<<10;
-	GPIOA->OTYPER &= (uint32_t) ~(0b01<<5);
-	GPIOA->PUPDR |= (uint32_t) 0b01<<10;
-	GPIOA->OSPEEDR |= (uint32_t) 0b11<<10;
+	GPIO_InitTypeDef GPIO_Struct;
 
-	GPIOA->ODR |= (uint32_t) 0b01<<5;
-	GPIOA->ODR &= (uint32_t) ~(0b01<<5);
+	GPIO_Struct.GPIO_Mode=GPIO_Mode_IN;
+	GPIO_Struct.GPIO_OType=GPIO_OType_OD;
+	GPIO_Struct.GPIO_PuPd=GPIO_PuPd_UP;
+	GPIO_Struct.GPIO_Speed=GPIO_Speed_40MHz;
+	GPIO_Struct.GPIO_Pin=GPIO_Pin_5;
+	GPIO_Init(GPIOA,&GPIO_Struct);
 
-	GPIOA->BSRRL |= (uint16_t) 0b01<<5;
-	GPIOA->BSRRH |= (uint16_t) 0b01<<5;
 
-	GPIOC->MODER &= (uint32_t) ~(0b11<<26);
-	GPIOC->OTYPER &= (uint32_t) ~(0b01<<13);
-	GPIOC->PUPDR &= (uint32_t) ~(0b11<<26);
-
-	uint8_t button;
-	uint16_t button_pressed_count = 0;
-	uint16_t button_released_count = 0;
-
-	  while (1)
-	  {
-
-		  button = ((GPIOC -> IDR)  & 0b01<<13 ) >> 13;
-
-		  if (button == 0){
-			  if (button_pressed_count < 666){
-				  button_pressed_count++;
-			  }
-			  button_released_count = 0;
-		  }else{
-			  if (button_released_count < 666){
-				  button_released_count++;
-			  }
-		  }
-
-		  if ((button == 1) && (button_released_count == 666) && (button_pressed_count == 666)){
-			  GPIOA -> ODR ^= GPIO_Pin_5;
-			  button_released_count = 0;
-			  button_pressed_count = 0;
-		  }
-	  }
-
+	  while (1);
 	return 0;
 }
 
