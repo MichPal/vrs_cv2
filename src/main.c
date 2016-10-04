@@ -68,9 +68,9 @@ int main(void)
 	GPIO_Struct.GPIO_Pin=GPIO_Pin_13;
 	GPIO_Init(GPIOC,&GPIO_Struct);
 
+	uint8_t button;
 
-
-	  while (1);
+	while (1){button=~GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);}
 	return 0;
 }
 
