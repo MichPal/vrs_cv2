@@ -61,6 +61,13 @@ int main(void)
 
 	GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_SET);
 
+	GPIO_Struct.GPIO_Mode=GPIO_Mode_IN;
+	GPIO_Struct.GPIO_OType=GPIO_OType_PP;
+	GPIO_Struct.GPIO_PuPd=GPIO_PuPd_NOPULL;
+	GPIO_Struct.GPIO_Pin=GPIO_Pin_13;
+	GPIO_Init(GPIOC,&GPIO_Struct);
+
+
 
 	  while (1);
 	return 0;
