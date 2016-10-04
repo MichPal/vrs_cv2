@@ -72,9 +72,9 @@ int main(void)
 
 	while (1)
 	{
-		GPIO_ToggleBits(GPIOA,GPIO_Pin_5);
-		for(int j=0;j<300000;j++);
-		//button=~GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);
+		button=GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);
+		if(button==0)GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_SET);
+		else GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_RESET);
 	}
 	return 0;
 }
