@@ -52,12 +52,14 @@ int main(void)
 
 	GPIO_InitTypeDef GPIO_Struct;
 
-	GPIO_Struct.GPIO_Mode=GPIO_Mode_IN;
-	GPIO_Struct.GPIO_OType=GPIO_OType_OD;
+	GPIO_Struct.GPIO_Mode=GPIO_Mode_OUT;
+	GPIO_Struct.GPIO_OType=GPIO_OType_PP;
 	GPIO_Struct.GPIO_PuPd=GPIO_PuPd_UP;
 	GPIO_Struct.GPIO_Speed=GPIO_Speed_40MHz;
 	GPIO_Struct.GPIO_Pin=GPIO_Pin_5;
 	GPIO_Init(GPIOA,&GPIO_Struct);
+
+	GPIO_WriteBit(GPIOA,GPIO_Pin_5,Bit_SET);
 
 
 	  while (1);
