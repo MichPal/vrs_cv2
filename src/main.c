@@ -70,7 +70,12 @@ int main(void)
 
 	uint8_t button;
 
-	while (1){button=~GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);}
+	while (1)
+	{
+		GPIO_ToggleBits(GPIOA,GPIO_Pin_5);
+		for(int j=0;j<300000;j++);
+		//button=~GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_13);
+	}
 	return 0;
 }
 
